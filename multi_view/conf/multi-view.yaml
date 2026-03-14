@@ -1,0 +1,40 @@
+train_args:
+  max_checkpoints_to_keep: 1
+  resume_from_checkpoint: false
+  seed: 42
+  save_steps: 150
+  save_epoches: 1
+  batch_size: 8
+  visual_log_project_name: Wan2.2_5B-Multi_view-normal_rope_wangpan_480_832pix_RoPE_split5_210_switchstep1000_mae0p6_mask0p8
+  output_path: /root/paddlejob/workspace/qizipeng/baidu/personal-code/Multi-view/multi_view/ckpts
+  local_model_path: /root/paddlejob/workspace/qizipeng/Wan-AI
+  zero_face_ratio: 0.1
+  # 动态输入训练：0/1/2/3张ref的概率分布 (10%/30%/30%/30%)
+  dynamic_ref_weights: [0.1, 0.3, 0.3, 0.3]
+  switch_rope_noise_step: 2000
+  # 1 是不mask,0到1之间是渐变mask 
+  ref_soft_mask_strength: 1
+  ref_mask_debug: false
+  ref_mask_debug_max: 5
+  ref_mask_debug_path: /root/paddlejob/workspace/qizipeng
+  split_rope: true
+  split1: false
+  split2: false
+  split3: false
+  split4: false
+  split5: true
+  split6: false  # Pose-Aware RoPE
+  pose_rope_max_offset: 5  # Max RoPE offset for pose
+  roll_mode: "simple"  # Roll mode: "simple" or "geometry"
+infer_args:
+  infer_step: 450
+  epoch_id: 7
+dataset_args:
+  base_path: /root/paddlejob/workspace/qizipeng/baidu/personal-code/Multi-view/multi_view/datasets/all_videos_wangpan_duration150.data
+  num_frames: 81
+  height: 480
+  width: 832
+  ref_num: 3
+  # 目前只用过 0.6
+  # 第二个为 0.4
+  mask_ref_ratio: 0.8
